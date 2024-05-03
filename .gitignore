@@ -9,6 +9,7 @@
 .history
 .svn/
 migrate_working_dir/
+local.properties
 
 # IntelliJ related
 *.iml
@@ -42,4 +43,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-/lib/config/strings/api/api_key.dart
+/assets/.env
+/ios/Runner/AppDelegate.swift
