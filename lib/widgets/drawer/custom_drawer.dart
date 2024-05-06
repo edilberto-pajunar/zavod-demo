@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:zavod_demo/config/router/router.gr.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -17,15 +19,15 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text("Profile"),
-            onTap: () {},
+            onTap: () => context.pushRoute(const ProfileRoute()),
           ),
           ListTile(
             title: const Text("Support"),
-            onTap: () {},
+            onTap: () => context.pushRoute(const SupportRoute()),
           ),
           ListTile(
             title: const Text("History"),
-            onTap: () {},
+            onTap: () => context.pushRoute(const HistoryRoute()),
           ),
         ],
       ),
