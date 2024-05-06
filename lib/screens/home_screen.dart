@@ -1,10 +1,14 @@
 import 'dart:async';
 
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:zavod_demo/bloc/map/map_bloc.dart';
+import 'package:zavod_demo/config/router/router.gr.dart';
+import 'package:zavod_demo/model/place.dart';
 import 'package:zavod_demo/widgets/drawer/custom_drawer.dart';
 
 @RoutePage()
@@ -22,23 +26,62 @@ class _HomeScreenState extends State<HomeScreen> {
     _controller.complete(controller);
   }
 
-  void _onTap() async {
-    
-  }
+  void _onTap() async {}
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MapBloc()
         ..add(UpdateMapHome(
-          context: context,
           onTap: _onTap,
         )),
-      child: BlocBuilder<MapBloc, MapState>(
+      child: BlocConsumer<MapBloc, MapState>(
+        listener: (context, state) {
+          if (state is ShowPopup) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        context.pushRoute(MapDetailRoute(target: state.target));
+                      },
+                      child: const Text("See more..."),
+                    ),
+                  ],
+                  content: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          "Latitude: ${state.target.latitude}",
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Longiture: ${state.target.longitude}",
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+        },
         builder: (context, state) {
           if (state is MapLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           }
 
@@ -71,8 +114,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           } else {
-            return const Center(
-              child: Text("Something went wrong."),
+            return const Scaffold(
+              body: Center(
+                child: Text("Something went wrong."),
+              ),
             );
           }
         },

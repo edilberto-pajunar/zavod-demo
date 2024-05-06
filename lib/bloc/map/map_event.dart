@@ -9,15 +9,23 @@ sealed class MapEvent extends Equatable {
 
 class UpdateMapHome extends MapEvent {
   final Function()? onTap;
-  final BuildContext context;
 
   const UpdateMapHome({
     this.onTap,
-    required this.context,
   });
 
   @override
-  List<Object?> get props => [onTap, context];
+  List<Object?> get props => [onTap];
+}
+
+class PopupShow extends MapEvent {
+  final LatLng target;
+  const PopupShow({
+    required this.target,
+  });
+
+  @override
+  List<Object?> get props => [target];
 }
 
 class SelectRandomPoint extends MapEvent {

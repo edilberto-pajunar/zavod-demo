@@ -31,3 +31,14 @@ final class MapLoaded extends MapState {
     );
   }
 }
+
+class ShowPopup extends MapState {
+  final LatLng target;
+
+  const ShowPopup({
+    required this.target,
+  });
+
+  @override
+  List<Object> get props => [target];
+}

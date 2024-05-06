@@ -10,7 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i6;
 import 'package:flutter/material.dart' as _i8;
-import 'package:zavod_demo/model/place.dart' as _i7;
+import 'package:google_maps_flutter/google_maps_flutter.dart' as _i7;
 import 'package:zavod_demo/screens/home_screen.dart' as _i2;
 import 'package:zavod_demo/screens/maps/map_detail_screen.dart' as _i3;
 import 'package:zavod_demo/screens/menu/history_screen.dart' as _i1;
@@ -39,7 +39,7 @@ abstract class $AppRouter extends _i6.RootStackRouter {
       return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i3.MapDetailScreen(
-          place: args.place,
+          target: args.target,
           key: args.key,
         ),
       );
@@ -91,13 +91,13 @@ class HomeRoute extends _i6.PageRouteInfo<void> {
 /// [_i3.MapDetailScreen]
 class MapDetailRoute extends _i6.PageRouteInfo<MapDetailRouteArgs> {
   MapDetailRoute({
-    required _i7.Place place,
+    required _i7.LatLng target,
     _i8.Key? key,
     List<_i6.PageRouteInfo>? children,
   }) : super(
           MapDetailRoute.name,
           args: MapDetailRouteArgs(
-            place: place,
+            target: target,
             key: key,
           ),
           initialChildren: children,
@@ -111,17 +111,17 @@ class MapDetailRoute extends _i6.PageRouteInfo<MapDetailRouteArgs> {
 
 class MapDetailRouteArgs {
   const MapDetailRouteArgs({
-    required this.place,
+    required this.target,
     this.key,
   });
 
-  final _i7.Place place;
+  final _i7.LatLng target;
 
   final _i8.Key? key;
 
   @override
   String toString() {
-    return 'MapDetailRouteArgs{place: $place, key: $key}';
+    return 'MapDetailRouteArgs{target: $target, key: $key}';
   }
 }
 
